@@ -11,7 +11,7 @@ Gerador de código CSS utilizando inteligência artificial. Descreva o que você
 
 ## 🖼️ Demonstração
 
-![Demonstração do NEXTSTAGE](/img/demo.gif)
+![Demonstração do NEXTSTAGE](/frontend/assets/img/demo.gif)
 
 ---
 
@@ -40,13 +40,27 @@ Gerador de código CSS utilizando inteligência artificial. Descreva o que você
 ```Text
 nextstage-css-generator/
 ├── backend/
-│   ├── server.js          # Servidor Express
-│   ├── package.json       # Dependências
-│   └── .env               # Chave da API (não commitar)
+│   ├── server.js
+│   ├── package.json
+│   ├── .env.example (exemplo do .env)
+│   └── .env (não commitar)
 ├── frontend/
-│   ├── index.html         # Interface
-│   ├── style.css          # Estilos
-│   └── script.js          # Lógica
+│   ├── index.html
+│   ├── css/
+│   │   └── style.css
+│   ├── js/
+│   │   └── script.js
+│   └──  assets/
+│       ├── images/
+│       │   ├── demo.gif
+│       │   └── favicon.ico
+│       └── fonts/
+│   
+├── .eslintrc.json
+├── .gitattributes
+├── .gitignore
+├── .prettierrc
+├── LICENSE
 └── README.md
 ```
 ## 🚀 Como Rodar Localmente
