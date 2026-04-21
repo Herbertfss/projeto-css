@@ -607,7 +607,6 @@ textarea:focus {
   line-height: 1.6;
   overflow: auto;
   border: 1px solid rgba(167, 139, 250, 0.2);
-  border-radius: 12px;
   padding: 20px;
   max-width: 800px;
   max-height: 500px;
@@ -616,6 +615,10 @@ textarea:focus {
   font-size: 13px;
   font-family: var(--font-mono);
   transition: all 0.3s ease;
+}
+
+/* Estilo para o loading */
+.codigo-descricao:has(.loading-container) {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -623,7 +626,7 @@ textarea:focus {
   text-align: center;
 }
 
-/* quando o código aparece, alinha à esquerda */
+/* Estilo para o <pre> quando tem código */
 .codigo-descricao pre {
   margin: 0;
   padding: 0;
@@ -635,11 +638,10 @@ textarea:focus {
   white-space: pre-wrap;
   word-break: break-word;
   text-align: left;
-  align-self: stretch;
   width: 100%;
 }
 
-/* scroll personalizada */
+/* Scrollbar personalizada */
 .codigo-descricao::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -655,7 +657,6 @@ textarea:focus {
 .codigo-descricao::-webkit-scrollbar-thumb:hover {
   background: rgba(167, 139, 250, 0.6);
 }
-
 /* ============================================ */
 /* ÁREA DE PREVIEW (iframe - lado direito)
 /* ============================================ */
