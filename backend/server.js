@@ -71,7 +71,7 @@ app.post("/gerar-codigo", async (req, res) => {
               content: `Você é um gerador de código HTML/CSS. Regras OBRIGATÓRIAS:
 
 1. Responda SOMENTE com código puro, sem explicações.
-2. O código deve ser COMPLETO e FUNCIONAL.
+2. O código deve ser COMPLETO e FUNCIONAL.NÃO use \`\`\`html, \`\`\`css ou qualquer marcação de código.
 3. Use indentação de 2 espaços para organizar o código.
 4. Cada tag deve ficar em uma nova linha.
 5. Mantenha o código LIMPO e LEGÍVEL.
