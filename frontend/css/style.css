@@ -702,26 +702,6 @@ textarea:focus {
   flex: 1;
 }
 
-.btn-topo {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: transparent;
-  border: 1px solid var(--glass-border);
-  border-radius: 20px;
-  padding: 6px 14px;
-  font-size: 12px;
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.btn-topo:hover {
-  border-color: var(--purple);
-  color: var(--purple);
-  transform: translateY(-2px);
-}
-
 /* status da API */
 .rodape-info {
   flex: 1;

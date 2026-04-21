@@ -240,30 +240,16 @@ if (btnLimpar) {
     // Limpa o textarea
     textarea.value = "";
     textarea.focus();
-    
+
     // Limpa a área de código
     codigoDescricao.innerHTML = "";
-    
+
     // Limpa o preview
     codigoAcao.srcdoc = "";
-    
+
     // Esconde o botão copiar
     if (btnCopiar) {
       btnCopiar.style.display = "none";
     }
-  });
-}
-
-// ============================================
-// BOTÃO VOLTAR AO TOPO
-// ============================================
-
-const btnTopo = document.getElementById("btn-topo");
-if (btnTopo) {
-  btnTopo.addEventListener("click", () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
   });
 }
