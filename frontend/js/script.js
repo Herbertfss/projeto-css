@@ -75,43 +75,47 @@ async function gerarCodigo() {
   </div>
 `;
 
-  // mostra loading no preview
+  // Mostra loading no preview (com detecção de tema)
+  const temaAtual = document.documentElement.getAttribute("data-theme");
+  const fundoPreview = temaAtual === "light" ? "#f1f5f9" : "#0a0a0f";
+  const textoCor = temaAtual === "light" ? "#7c3aed" : "#a78bfa";
+
   codigoAcao.srcdoc = `
-    <html>
-      <head>
-        <style>
-          body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background: #0a0a0f;
-            font-family: monospace;
-          }
-          svg {
-            animation: girar 1s linear infinite;
-          }
-          @keyframes girar {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-          }
-          p {
-            color: #a78bfa;
-            margin-top: 16px;
-            font-size: 13px;
-          }
-        </style>
-      </head>
-      <body>
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2">
-          <circle cx="12" cy="12" r="10" stroke="#a78bfa" stroke-width="2" fill="none" stroke-dasharray="30 8"/>
-        </svg>
-        <p>Carregando preview...</p>
-      </body>
-    </html>
-  `;
+  <html>
+    <head>
+      <style>
+        body {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
+          margin: 0;
+          background: ${fundoPreview};
+          font-family: monospace;
+        }
+        svg {
+          animation: girar 1s linear infinite;
+        }
+        @keyframes girar {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        p {
+          color: ${textoCor};
+          margin-top: 16px;
+          font-size: 13px;
+        }
+      </style>
+    </head>
+    <body>
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="${textoCor}" stroke-width="2">
+        <circle cx="12" cy="12" r="10" stroke="${textoCor}" stroke-width="2" fill="none" stroke-dasharray="30 8"/>
+      </svg>
+      <p>Carregando preview...</p>
+    </body>
+  </html>
+`;
 
   // ========== CHAMADA PARA O BACKEND ==========
 
@@ -252,4 +256,31 @@ if (btnLimpar) {
       btnCopiar.style.display = "none";
     }
   });
+}
+
+// ============================================
+// TEMA LIGHT / DARK
+// ============================================
+
+const btnTema = document.getElementById("btn-tema");
+const iconeSol = document.querySelector(".icone-sol");
+const iconeLua = document.querySelector(".icone-lua");
+
+function alternarTema() {
+  const html = document.documentElement;
+  const temaAtual = html.getAttribute("data-theme");
+
+  if (temaAtual === "light") {
+    html.setAttribute("data-theme", "dark");
+    if (iconeSol) iconeSol.style.display = "block";
+    if (iconeLua) iconeLua.style.display = "none";
+  } else {
+    html.setAttribute("data-theme", "light");
+    if (iconeSol) iconeSol.style.display = "none";
+    if (iconeLua) iconeLua.style.display = "block";
+  }
+}
+
+if (btnTema) {
+  btnTema.addEventListener("click", alternarTema);
 }

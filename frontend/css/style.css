@@ -44,6 +44,38 @@
   --font-mono: "JetBrains Mono", monospace;
 }
 
+[data-theme="light"] {
+  /* FUNDOS */
+  --bg: #f8fafc;
+  --bg-code: #ffffff;
+  --bg-deep: #f1f5f9;
+  
+  /* TEXTOS */
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --text-code: #0f172a;
+  
+  /* ROXOS (primários) */
+  --purple: #7c3aed;
+  --purple-bright: #a78bfa;
+  --purple-deep: #6d28d9;
+  --purple-dark: #5b21b6;
+  --purple-glow: rgba(124, 58, 237, 0.08);
+  
+  /* CORES DE STATUS */
+  --green-live: #10b981;
+  --error-red: #ef4444;
+  
+  /* EFEITOS GLASS */
+  --glass-bg: rgba(255, 255, 255, 0.9);
+  --glass-border: rgba(124, 58, 237, 0.12);
+  --glass-border-bright: rgba(124, 58, 237, 0.25);
+  
+  /* CORES ADICIONAIS */
+  --pink: #ec4899;
+}
+
 /* ============================================ */
 /* ESTRUTURA BASE DO BODY
 /* ============================================ */
@@ -853,6 +885,178 @@ textarea:focus {
   .rodape-info {
     justify-content: center;
   }
+}
+
+/* ============================================ */
+/* BOTÃO DE TEMA (LIGHT/DARK)
+/* ============================================ */
+
+.btn-tema {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text-primary);
+}
+
+.btn-tema:hover {
+  border-color: var(--purple);
+  transform: scale(1.05);
+  background: var(--purple-glow);
+}
+
+.btn-tema svg {
+  width: 20px;
+  height: 20px;
+  stroke: var(--text-secondary);
+}
+
+.btn-tema:hover svg {
+  stroke: var(--purple);
+}
+
+/* CABEÇALHO */
+
+[data-theme="light"] .cabecalho {
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 28px 28px;
+}
+
+[data-theme="light"] .cabecalho::after {
+  display: none;
+}
+
+/* BOTÃO DE CÓDIGO */
+
+[data-theme="light"] .btn-codigo {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  color: #ffffff;
+}
+
+[data-theme="light"] .btn-codigo:hover {
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+}
+
+/* CARTÃO DE VIDRO */
+
+[data-theme="light"] .cartao-vidro {
+  background: #ffffff;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="light"] .cartao-vidro:hover {
+  border-color: var(--glass-border-bright);
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.08);
+}
+
+/* TEXTAREA */
+
+[data-theme="light"] textarea {
+  background: #ffffff;
+  border-color: #e2e8f0;
+  color: var(--text-primary);
+}
+
+[data-theme="light"] textarea:focus {
+  border-color: var(--purple);
+  background: #ffffff;
+}
+
+[data-theme="light"] .rodape-input {
+  background: #ffffff;
+  border-color: #e2e8f0;
+  border-top: none;
+}
+
+/* CARTÃO DISTINTIVO */
+
+[data-theme="light"] .cartao-distintivo.ao-vivo {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.3);
+  color: #059669;
+}
+
+/* ORBS BACKGROUND */
+
+[data-theme="light"] .bg-orbs {
+  display: none;
+}
+
+[data-theme="light"] body {
+  background: var(--bg);
+  position: relative;
+}
+
+[data-theme="light"] body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(#cbd5e1 2px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.3;
+  z-index: 0;
+}
+
+[data-theme="light"] .cabecalho,
+[data-theme="light"] main,
+[data-theme="light"] .container-input,
+[data-theme="light"] .resultados,
+[data-theme="light"] .container-limpar,
+[data-theme="light"] .rodape {
+  position: relative;
+  z-index: 1;
+}
+
+/* CÓDIGO DE DESCRIÇÃO */
+
+[data-theme="light"] .codigo-descricao {
+  background: #f1f5f9;
+  border: 1px solid rgba(167, 139, 250, 0.1);
+  color: var(--text-code);
+}
+
+
+/* CÓDIGO DE AÇÃO */
+
+[data-theme="light"] .codigo-acao {
+  background: #ffffff;
+}
+
+[data-theme="light"] .codigo-acao:empty,
+[data-theme="light"] .codigo-acao[src=""],
+[data-theme="light"] .codigo-acao:not([srcdoc]) {
+  background: #f1f5f9;
+}
+
+[data-theme="light"] .btn-limpar{
+  background: #ffffff;
+}
+
+/* RODAPÉ */
+
+[data-theme="light"] .rodape {
+  background: rgba(255, 255, 255, 0.95);
+  border-top-color: #e2e8f0;
+}
+
+[data-theme="light"] .social-link {
+  background: #ffffff;
+  border-color: #e2e8f0;
+}
+
+[data-theme="light"] .social-link:hover {
+  border-color: var(--purple);
+  background: var(--purple-glow);
 }
 
 /* ============================================ */
