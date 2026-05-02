@@ -43,6 +43,8 @@ Gerador de código CSS utilizando inteligência artificial. Descreva o que você
 ![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white)
 ![Express](https://img.shields.io/badge/Express-000000?logo=express&logoColor=white)
 ![Groq](https://img.shields.io/badge/Groq-API-6a0dad)
+![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?logo=supabase&logoColor=white)
+![ESLint](https://img.shields.io/badge/ESLint-4B32C3?logo=eslint&logoColor=white)
 
 ### Deploy
 
@@ -63,7 +65,9 @@ nextstage-css-generator/
 │   ├── css/
 │   │   └── style.css
 │   ├── js/
-│   │   └── script.js
+│   │   ├── script.js
+│   │   ├── auth.js
+│   │   └── supabase.js
 │   └── assets/
 │       ├── images/
 │       │   ├── demo2.gif
