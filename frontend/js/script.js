@@ -284,3 +284,120 @@ function alternarTema() {
 if (btnTema) {
   btnTema.addEventListener("click", alternarTema);
 }
+
+/* ============================================ */
+/* AUTENTICAÇÃO COM SUPABASE
+/* ============================================ */
+
+import { supabase } from './supabase.js';
+
+// Elementos do modal de autenticação
+const modalAuth = document.getElementById('modal-auth');
+const btnLoginHeader = document.getElementById('btn-login-header');
+const btnFecharAuth = document.getElementById('btn-fechar-auth');
+const tabLogin = document.getElementById('tab-login');
+const tabCadastro = document.getElementById('tab-cadastro');
+const formLogin = document.getElementById('form-login');
+const formCadastro = document.getElementById('form-cadastro');
+const btnLogin = document.getElementById('btn-login');
+const btnCadastro = document.getElementById('btn-cadastro');
+
+let usuarioLogado = null;
+
+// Abrir modal
+if (btnLoginHeader) {
+  btnLoginHeader.addEventListener('click', () => {
+    modalAuth.style.display = 'flex';
+  });
+}
+
+// Fechar modal
+if (btnFecharAuth) {
+  btnFecharAuth.addEventListener('click', () => {
+    modalAuth.style.display = 'none';
+  });
+}
+
+// Alternar abas
+tabLogin.addEventListener('click', () => {
+  tabLogin.classList.add('ativo');
+  tabCadastro.classList.remove('ativo');
+  formLogin.style.display = 'flex';
+  formCadastro.style.display = 'none';
+});
+
+tabCadastro.addEventListener('click', () => {
+  tabCadastro.classList.add('ativo');
+  tabLogin.classList.remove('ativo');
+  formLogin.style.display = 'none';
+  formCadastro.style.display = 'flex';
+});
+
+// Função de login
+async function fazerLogin() {
+  const email = document.getElementById('login-email').value;
+  const senha = document.getElementById('login-senha').value;
+  const mensagem = document.getElementById('login-mensagem');
+  
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: email,
+    password: senha
+  });
+  
+  if (error) {
+    mensagem.textContent = error.message;
+  } else {
+    mensagem.textContent = '✅ Login realizado!';
+    usuarioLogado = data.user;
+    modalAuth.style.display = 'none';
+    btnLoginHeader.textContent = `👤 ${data.user.email}`;
+    carregarPastas();
+  }
+}
+
+// Função de cadastro
+async function fazerCadastro() {
+  const email = document.getElementById('cadastro-email').value;
+  const senha = document.getElementById('cadastro-senha').value;
+  const mensagem = document.getElementById('cadastro-mensagem');
+  
+  if (senha.length < 6) {
+    mensagem.textContent = 'A senha deve ter pelo menos 6 caracteres';
+    return;
+  }
+  
+  const { data, error } = await supabase.auth.signUp({
+    email: email,
+    password: senha
+  });
+  
+  if (error) {
+    mensagem.textContent = error.message;
+  } else {
+    mensagem.textContent = '✅ Conta criada! Verifique seu email.';
+    setTimeout(() => {
+      tabLogin.click();
+    }, 2000);
+  }
+}
+
+btnLogin.addEventListener('click', fazerLogin);
+btnCadastro.addEventListener('click', fazerCadastro);
+
+// Verificar se já está logado ao carregar
+async function verificarSessao() {
+  const { data } = await supabase.auth.getSession();
+  if (data.session) {
+    usuarioLogado = data.session.user;
+    btnLoginHeader.textContent = `👤 ${data.session.user.email}`;
+    carregarPastas();
+  }
+}
+
+verificarSessao();
+
+// Função para carregar pastas (será implementada depois)
+async function carregarPastas() {
+  console.log('Carregando pastas do usuário...');
+}
+
