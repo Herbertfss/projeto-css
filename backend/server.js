@@ -1,12 +1,19 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import { createClient } from "@supabase/supabase-js";
 
 // Carrega as variáveis do .env (onde fica a chave da API)
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Inicializa o cliente do Supabase
+const supabase = createClient(
+  process.env.SUPABASE_URL || "",
+  process.env.SUPABASE_ANON_KEY || ""
+);
 
 // Middlewares essenciais:
 // - cors: libera o frontend a falar com o backend (qualquer origem para deploy)
