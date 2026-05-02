@@ -53,8 +53,35 @@
         <span class="logo-distintivo">IA</span>
       </div>
       <nav class="navegacao">
-        <span>Docs</span>
-        <span>API</span>
+        <button id="btn-login-header" class="btn-login-header">
+          <svg
+            class="icone-cadeado"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <rect
+              x="5"
+              y="11"
+              width="14"
+              height="11"
+              rx="2"
+              ry="2"
+              stroke="currentColor"
+              fill="none"
+            />
+            <path
+              d="M7 11V7a5 5 0 0 1 10 0v4"
+              stroke="currentColor"
+              fill="none"
+            />
+            <circle cx="12" cy="16" r="1.5" fill="currentColor" />
+          </svg>
+          Entrar
+        </button>
         <button
           id="btn-tema"
           class="btn-tema"
@@ -122,6 +149,71 @@
         </button>
       </nav>
     </header>
+
+    <!-- MODAL DE LOGIN/CADASTRO -->
+    <div id="modal-auth" class="modal-auth">
+      <div class="modal-auth-conteudo">
+        <div class="modal-auth-header">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <polygon
+              points="12,2 22,8 22,16 12,22 2,16 2,8"
+              stroke="#a78bfa"
+              stroke-width="1.5"
+              fill="none"
+            />
+            <polygon
+              points="12,6 18,9.5 18,14.5 12,18 6,14.5 6,9.5"
+              fill="#a78bfa"
+              opacity="0.3"
+            />
+          </svg>
+          <h2>NEXTSTAGE</h2>
+          <button id="btn-fechar-auth" class="btn-fechar-auth">&times;</button>
+        </div>
+
+        <!-- Abas de login e cadastro -->
+        <div class="auth-tabs">
+          <button id="tab-login" class="auth-tab ativo">Entrar</button>
+          <button id="tab-cadastro" class="auth-tab">Criar conta</button>
+        </div>
+
+        <!-- FORMULÁRIO DE LOGIN -->
+        <div id="form-login" class="auth-form">
+          <input
+            type="email"
+            id="login-email"
+            placeholder="Seu email"
+            class="auth-input"
+          />
+          <input
+            type="password"
+            id="login-senha"
+            placeholder="Sua senha"
+            class="auth-input"
+          />
+          <button id="btn-login" class="btn-auth">Entrar</button>
+          <p class="auth-mensagem" id="login-mensagem"></p>
+        </div>
+
+        <!-- FORMULÁRIO DE CADASTRO -->
+        <div id="form-cadastro" class="auth-form" style="display: none">
+          <input
+            type="email"
+            id="cadastro-email"
+            placeholder="Seu email"
+            class="auth-input"
+          />
+          <input
+            type="password"
+            id="cadastro-senha"
+            placeholder="Sua senha (mínimo 6 caracteres)"
+            class="auth-input"
+          />
+          <button id="btn-cadastro" class="btn-auth">Criar conta</button>
+          <p class="auth-mensagem" id="cadastro-mensagem"></p>
+        </div>
+      </div>
+    </div>
 
     <!-- SEÇÃO PRINCIPAL DE APRESENTAÇÃO -->
     <main>
@@ -305,6 +397,7 @@
       </div>
     </footer>
 
-    <script src="js/script.js"></script>
+    <script type="module" src="js/script.js"></script>
+    <script src="js/auth.js" type="module"></script>
   </body>
 </html>
