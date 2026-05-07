@@ -245,6 +245,161 @@ body {
 }
 
 /* ============================================ */
+/* SIDEBAR - LISTA DE PASTAS
+/* ============================================ */
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 120px;
+  width: 260px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border-right: 1px solid var(--glass-border);
+  border-radius: 0 16px 16px 0;
+  padding: 20px;
+  z-index: 100;
+  transition: all 0.3s ease;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.sidebar-header h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.btn-nova-pasta {
+  background: transparent;
+  border: 1px solid var(--glass-border);
+  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-nova-pasta:hover {
+  border-color: var(--purple);
+  background: var(--purple-glow);
+}
+
+.lista-pastas {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+}
+
+.pasta-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pasta-item:hover {
+  background: rgba(167, 139, 250, 0.1);
+}
+
+.pasta-nome {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.pasta-nome svg {
+  stroke: var(--purple);
+}
+
+.pasta-acoes {
+  display: flex;
+  gap: 6px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.pasta-item:hover .pasta-acoes {
+  opacity: 1;
+}
+
+.btn-editar-pasta, .btn-excluir-pasta {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-editar-pasta:hover {
+  background: rgba(167, 139, 250, 0.2);
+}
+
+.btn-excluir-pasta:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
+
+.sem-pastas {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  padding: 20px;
+}
+
+/* Ajuste do conteúdo principal quando sidebar estiver visível */
+body.sidebar-visible main,
+body.sidebar-visible .container-input,
+body.sidebar-visible .resultados,
+body.sidebar-visible .container-limpar,
+body.sidebar-visible .rodape {
+  margin-left: 280px;
+  max-width: calc(100% - 280px);
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    left: -100%;
+    top: 80px;
+    border-radius: 0;
+  }
+  body.sidebar-visible .sidebar {
+    left: 0;
+  }
+  body.sidebar-visible main,
+  body.sidebar-visible .container-input,
+  body.sidebar-visible .resultados,
+  body.sidebar-visible .container-limpar,
+  body.sidebar-visible .rodape {
+    margin-left: 0;
+    max-width: 100%;
+  }
+}
+
+/* ============================================ */
 /* MODAL DE AUTENTICAÇÃO
 /* ============================================ */
 

@@ -150,6 +150,21 @@
       </nav>
     </header>
 
+    <!-- SIDEBAR (aparece só quando logado) -->
+<aside id="sidebar" class="sidebar" style="display: none;">
+  <div class="sidebar-header">
+    <h3>📁 Minhas Pastas</h3>
+    <button id="btn-nova-pasta" class="btn-nova-pasta" title="Nova pasta">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+  <div id="lista-pastas" class="lista-pastas">
+    <p class="sem-pastas">Nenhuma pasta criada ainda.</p>
+  </div>
+</aside>
+
     <!-- MODAL DE LOGIN/CADASTRO -->
     <div id="modal-auth" class="modal-auth">
       <div class="modal-auth-conteudo">

@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import { createClient } from "@supabase/supabase-js";
 
 // Carrega as variáveis do .env (onde fica a chave da API)
-dotenv.config();
+dotenv.config({ path: "./backend/.env" });
 
 const app = express();
 const PORT = process.env.PORT || 3000;

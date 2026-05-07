@@ -78,6 +78,7 @@ async function fazerLogin() {
     usuarioLogado = data.user;
     if (modalAuth) modalAuth.style.display = "none";
     atualizarBotaoLogin(data.user.email);
+    mostrarSidebar(true);
     carregarPastas();
   }
 }
@@ -203,6 +204,9 @@ async function fazerLogout() {
     `;
   }
 
+  // Esconder sidebar
+  mostrarSidebar(false);
+
   // Fechar menu se estiver aberto
   fecharMenuLogout();
 
@@ -223,6 +227,164 @@ async function verificarSessao() {
 async function carregarPastas() {
   console.log("Carregando pastas do usuário...", usuarioLogado);
 }
+
+/* ============================================ */
+/* SISTEMA DE PASTAS
+/* ============================================ */
+
+const sidebar = document.getElementById('sidebar');
+const listaPastas = document.getElementById('lista-pastas');
+const btnNovaPasta = document.getElementById('btn-nova-pasta');
+
+// Mostrar/ocultar sidebar baseado no login
+function mostrarSidebar(mostrar) {
+  if (sidebar) {
+    sidebar.style.display = mostrar ? 'block' : 'none';
+  }
+  if (mostrar) {
+    document.body.classList.add('sidebar-visible');
+    carregarPastas();
+  } else {
+    document.body.classList.remove('sidebar-visible');
+  }
+}
+
+// Carregar pastas do usuário
+async function carregarPastas() {
+  if (!usuarioLogado) return;
+  
+  const { data, error } = await supabase
+    .from('pastas')
+    .select('*')
+    .eq('usuario_id', usuarioLogado.id)
+    .order('criado_em', { ascending: true });
+  
+  if (error) {
+    console.error('Erro ao carregar pastas:', error);
+    return;
+  }
+  
+  renderizarPastas(data);
+}
+
+// Renderizar lista de pastas
+function renderizarPastas(pastas) {
+  if (!listaPastas) return;
+  
+  if (!pastas || pastas.length === 0) {
+    listaPastas.innerHTML = '<p class="sem-pastas">Nenhuma pasta criada ainda.</p>';
+    return;
+  }
+  
+  listaPastas.innerHTML = '';
+  pastas.forEach(pasta => {
+    const pastaDiv = document.createElement('div');
+    pastaDiv.className = 'pasta-item';
+    pastaDiv.dataset.id = pasta.id;
+    pastaDiv.innerHTML = `
+      <div class="pasta-nome">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" stroke="currentColor" fill="none"/>
+        </svg>
+        <span>${escapeHTML(pasta.nome)}</span>
+      </div>
+      <div class="pasta-acoes">
+        <button class="btn-editar-pasta" data-id="${pasta.id}" data-nome="${escapeHTML(pasta.nome)}" title="Editar">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 3l4 4-7 7H10v-4l7-7z" stroke="currentColor" fill="none"/>
+          </svg>
+        </button>
+        <button class="btn-excluir-pasta" data-id="${pasta.id}" title="Excluir">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6M5 6l1 14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-14" stroke="currentColor" fill="none"/>
+          </svg>
+        </button>
+      </div>
+    `;
+    
+    listaPastas.appendChild(pastaDiv);
+  });
+  
+  // Adicionar eventos nos botões
+  document.querySelectorAll('.btn-editar-pasta').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const id = btn.dataset.id;
+      const nome = btn.dataset.nome;
+      editarPasta(id, nome);
+    });
+  });
+  
+  document.querySelectorAll('.btn-excluir-pasta').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const id = btn.dataset.id;
+      excluirPasta(id);
+    });
+  });
+}
+
+// Criar nova pasta
+async function criarPasta() {
+  const nome = prompt('Digite o nome da nova pasta:');
+  if (!nome || nome.trim() === '') return;
+  
+  const { error } = await supabase
+    .from('pastas')
+    .insert([{ nome: nome.trim(), usuario_id: usuarioLogado.id }]);
+  
+  if (error) {
+    alert('Erro ao criar pasta: ' + error.message);
+  } else {
+    carregarPastas();
+  }
+}
+
+// Editar pasta
+async function editarPasta(id, nomeAtual) {
+  const novoNome = prompt('Editar nome da pasta:', nomeAtual);
+  if (!novoNome || novoNome.trim() === '') return;
+  
+  const { error } = await supabase
+    .from('pastas')
+    .update({ nome: novoNome.trim() })
+    .eq('id', id);
+  
+  if (error) {
+    alert('Erro ao editar pasta: ' + error.message);
+  } else {
+    carregarPastas();
+  }
+}
+
+// Excluir pasta
+async function excluirPasta(id) {
+  if (!confirm('Tem certeza que deseja excluir esta pasta? Todos os códigos dentro dela também serão excluídos.')) return;
+  
+  const { error } = await supabase
+    .from('pastas')
+    .delete()
+    .eq('id', id);
+  
+  if (error) {
+    alert('Erro ao excluir pasta: ' + error.message);
+  } else {
+    carregarPastas();
+  }
+}
+
+// Evento do botão nova pasta
+if (btnNovaPasta) {
+  btnNovaPasta.addEventListener('click', criarPasta);
+}
+
+// Atualizar a função que mostra o sidebar após o login
+// Modifique a função atualizarBotaoLogin e o local onde chama mostrarSidebar
+
+// Atualizar a função fazerLogin para chamar mostrarSidebar(true)
+// dentro do if (data.session) após atualizarBotaoLogin
+
+// E na função fazerLogout, chamar mostrarSidebar(false)
 
 // Inicializar
 verificarSessao();
